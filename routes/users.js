@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// and this is the second test line 
+// and this is the scecond test line 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
