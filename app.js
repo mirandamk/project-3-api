@@ -2,10 +2,10 @@ require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
 
 var app = express();
 
@@ -33,32 +33,3 @@ app.use('/assignment', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 
 module.exports = app;
-
-
-// app.use('/', require('./routes/home'));
-// let db = mongoose.connection;
-
-// db.once('open', () => console.log('connected to the database'));
-
-// var router = express.Router();
-
-// const Data = require('./data');
-
-// var indexRouter = require('./routes/home');
-// var usersRouter = require('./routes/users');
-
-// app.use(
-//   cors({
-//     // this could be multiple domains/origins, but we will allow just our React app
-//     origin: ['http://localhost:3000'],
-//   })
-// );
-
-// app.use('/users', usersRouter);
-// app.use('/api', router);
-
-// app.listen(3000, () => console.log("listening to port 3000"))
-
-// app.use('/api', router);
-
-// app.listen(3000, () => console.log("listening to port 3000"))
