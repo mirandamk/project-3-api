@@ -1,10 +1,9 @@
-// Extended Assignment Model with relations.
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const assignSchema = new Schema({
+const assignmentSchema = new Schema({
   explanation: { type: String, required: true },
   answer: { type: String, required: true },
 });
-const Assign = mongoose.model('assign', assignSchema);
-module.exports = Assign;
+const Assignment = mongoose.model('assignments', assignmentSchema);
+module.exports = Assignment;

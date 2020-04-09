@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Assign = require('../models/assignModel');
+var Assignment = require('../models/assignmentModel');
 
-/* GET assign page. */
 router.get('/', function (req, res, next) {
-  Assign.find()
+  Assignment.find()
     .then((assignment) => {
       res.json(assignment);
     })
