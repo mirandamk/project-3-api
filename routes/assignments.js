@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/userModel');
+var Assignment = require('../models/assignmentModel');
 
-/* GET home page. */
+
 router.get('/', function (req, res, next) {
-  User.find()
-    .then((user) => {
-      res.json(user);
+  Assignment.find()
+    .then((assignment) => {
+      res.json(assignment);
     })
     .catch((err) => {
       console.log(err);

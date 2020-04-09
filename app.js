@@ -2,18 +2,12 @@ require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-// var logger = require('morgan');
-const mongoose = require('mongoose');
+var logger = require('morgan');
 var cors = require('cors');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
-// const Data = require('./data');
-
-var indexRouter = require('./routes/home');
-// var usersRouter = require('./routes/users');
 
 var app = express();
-// const router = express.Router();
 
 mongoose
   .connect(`${process.env.db}`, {
@@ -21,24 +15,37 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(x => {
+  .then((x) => {
     console.log(`Connected to MongoDB name: "${x.connections[0].name}"`);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('Unexpected error, connection failed!', error);
   });
 
-  // let db = mongoose.connection;
-
-  // db.once('open', () => console.log('connected to the database'));
-
-
 app.use(cors());
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/assignment', require('./routes/assignments'));
+app.use('/user', require('./routes/users'));
+
+module.exports = app;
+
+
+// app.use('/', require('./routes/home'));
+// let db = mongoose.connection;
+
+// db.once('open', () => console.log('connected to the database'));
+
+// var router = express.Router();
+
+// const Data = require('./data');
+
+// var indexRouter = require('./routes/home');
+// var usersRouter = require('./routes/users');
 
 // app.use(
 //   cors({
@@ -47,16 +54,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   })
 // );
 
-
-
-app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 // app.use('/api', router);
 
-////
+// app.listen(3000, () => console.log("listening to port 3000"))
 
-/////
-
+// app.use('/api', router);
 
 // app.listen(3000, () => console.log("listening to port 3000"))
-module.exports = app;
