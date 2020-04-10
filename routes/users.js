@@ -4,7 +4,6 @@ var router = express.Router();
 var User = require('../models/userModel');
 // const bcrypt = require('bcrypt');
 
-/* Old working version. */
 router.get('/', function (req, res, next) {
   User.find()
     .then((user) => {
@@ -16,15 +15,17 @@ router.get('/', function (req, res, next) {
 });
 
 
-// app.post('/', (req, res) => {
-//   User.create(req.body)
-//     .then((usersignup) => {
-//       res.json(usersignup);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ message: 'err' });
-//     });
-// });
+router.post('/signup', (req, res) => {
+  User.create(req.body)
+    .then((user) => {
+      // console.log(req.body.currentUser)
+      // console.log(user)
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'err' });
+    });
+});
 
 module.exports = router;
 

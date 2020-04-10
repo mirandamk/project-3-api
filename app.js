@@ -22,7 +22,9 @@ mongoose
     console.log('Unexpected error, connection failed!', error);
   });
 
-app.use(cors());
+app.use(cors({
+  
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,4 +35,3 @@ app.use('/assignments', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 
 module.exports = app;
-
