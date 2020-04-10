@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
       res.json(user);
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Error", err);
     });
 });
 
