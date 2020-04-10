@@ -1,6 +1,6 @@
 var express = require('express');
-const app = express();
-// var router = express.Router();
+// const app = express();
+var router = express.Router();
 var Assignments = require('../models/assignmentsModel');
 
 // app.get('/', function (req, res, next) {
@@ -13,7 +13,7 @@ var Assignments = require('../models/assignmentsModel');
 //     });
 // });
 
-app.post('/', (req, res) => {
+router.post('/', (req, res) => {
   Assignments.create(req.body)
     .then((assignments) => {
       res.json(assignments);
@@ -23,4 +23,4 @@ app.post('/', (req, res) => {
     });
 });
 
-module.exports = app;
+module.exports = router;
