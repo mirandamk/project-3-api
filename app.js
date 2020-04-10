@@ -33,5 +33,3 @@ app.use('/assignments', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 
 module.exports = app;
-
-app.listen(3000, () => console.log("listening to port 3000"))
