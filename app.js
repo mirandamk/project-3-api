@@ -29,7 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/assignment', require('./routes/assignments'));
+app.use('/assignments', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 
 module.exports = app;
+
+app.listen(3000, () => console.log("listening to port 3000"))

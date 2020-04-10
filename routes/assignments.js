@@ -1,16 +1,26 @@
 var express = require('express');
-var router = express.Router();
-var Assignment = require('../models/assignmentModel');
+const app = express();
+// var router = express.Router();
+var Assignments = require('../models/assignmentsModel');
 
+// app.get('/', function (req, res, next) {
+//   Assignments.find()
+//     .then((assignments) => {
+//       res.json(assignments);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
-router.get('/', function (req, res, next) {
-  Assignment.find()
-    .then((assignment) => {
-      res.json(assignment);
+app.post('/', (req, res) => {
+  Assignments.create(req.body)
+    .then((assignments) => {
+      res.json(assignments);
     })
     .catch((err) => {
-      console.log(err);
+      res.status(500).json({ message: 'err' });
     });
 });
 
-module.exports = router;
+module.exports = app;
