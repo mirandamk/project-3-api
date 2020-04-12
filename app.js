@@ -1,12 +1,14 @@
 require('dotenv').config();
 var express = require('express');
 var path = require('path');
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors');
-// const bodyParser = require('body-parser');
 
+
+//allow localhost3002(react) to connect with localhost3000(express)
 var app = express();
 app.use(
   cors({
@@ -15,6 +17,7 @@ app.use(
   })
 );
 
+// CORS method from the internet
 // app.get('/', function (req, res, next) {
 //   res.json({ msg: 'This is CORS-enabled for all origins!' });
 // });
@@ -23,6 +26,24 @@ app.use(
 //   console.log('CORS-enabled web server listening on port 80');
 // });
 
+// Dependencies for cookie sessions
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+//Starting cookie session for user
+app.use(
+  session({
+    secret: 'basic-auth-secret',
+    cookie: { maxAge: 60000 * 60 },
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60 * 1000,
+    }),
+    saveUninitialized: true,
+  })
+);
+
+//Connect to the database(env.db contains link to MongoDb)
 mongoose
   .connect(`${process.env.db}`, {
     // useCreateIndex: true,
@@ -36,33 +57,31 @@ mongoose
     console.log('Unexpected error, connection failed!', error);
   });
 
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-
-app.use(
-  session({
-    secret: 'basic-auth-secret',
-    cookie: { maxAge: 60000 * 60 },
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      ttl: 24 * 60 * 60 * 1000,
-    }),
-    saveUninitialized: true
-  })
-);
-
+//Function to protect routes if not logged in
 function protect(req, res, next, err) {
-  if (req.session.currentUser) next();
-  else res.status(500).json(err);
-}
+  if (req.session.currentUser) {
+    next();
+  }
+  else {
+    res.json('/login')
+    // res.status(500).json(err);
+}}
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//code I got from the internet to solve the cors problem
+//Routes -> word after the first / is what React will look for in localhost3000/....
+app.use('/assignments', protect, require('./routes/assignments'));
+app.use('/user', require('./routes/users'));
+app.use('/signup', require('./routes/signup'));
+app.use('/login', require('./routes/login'));
+
+module.exports = app;
+
+//Another code I got from the internet to solve the cors problem
 // app.use(function (req, res, next) {
 /*  res.header('Access-Control-Allow-Origin', 'localhost');
   res.header(
@@ -71,9 +90,3 @@ app.use(express.static(path.join(__dirname, 'public')));
   );*/
 //   next();
 // });
-
-app.use('/assignments', require('./routes/assignments'));
-app.use('/user', require('./routes/users'));
-app.use('/signup', require('./routes/signup'));
-
-module.exports = app;

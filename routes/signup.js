@@ -1,3 +1,6 @@
+//NOTE: need to add error messages and instruction for how to fill in sign up form (e.g. password requirements)
+// at least one number, one lowercase and one uppercase letter
+// at least 8 characters
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
@@ -12,7 +15,6 @@ router.post('/', (req, res) => {
         res.json({ err: 'The username already exists!' });
       } else {
         if (checkPassword(password) !== true) {
-          //insert some errormessage here that will be shown
           res.err('Error');
         }
         bcrypt.hash(password, 10, function (err, hash) {
@@ -41,8 +43,6 @@ router.post('/', (req, res) => {
 });
 
 function checkPassword(str) {
-  // at least one number, one lowercase and one uppercase letter
-  // at least 8 characters
   var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
   return re.test(str);
 }
