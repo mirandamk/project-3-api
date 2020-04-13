@@ -1,4 +1,6 @@
 //check with Emilie; are we still using this page, or did the sign up and login routes replace this route? 
+// I think the routes/signup and routes/login can stand alone, but also think we need routes/user to make ex. localhost.../user to show in browser. 
+//But lets first check if /user shows after log in is working, bc right now I can't access /user in browser. I believe it is protected right now?
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
