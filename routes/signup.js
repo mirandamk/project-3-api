@@ -3,7 +3,7 @@
 // at least 8 characters
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+var User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 router.post('/', (req, res) => {
@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
               password: hash,
             })
               .then((response) => {
+                // console.log(user._id)
                 res.json(response);
               })
               .catch((err) => {

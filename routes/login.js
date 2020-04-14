@@ -1,30 +1,33 @@
 //NOTE: still need to add error messages
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+var User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 router.post('/', (req, res, next) => {
   const { username, password } = req.body;
   User.findOne({
-    username
+    username,
   })
     .then((user) => {
       if (!user) {
-        res.status(500)
+        res.status(500);
         res.json('Invalid Credentials');
       } else {
+          console.log('password ' + password);
         bcrypt.compare(password, user.password, function (
           error,
           correctPassword
         ) {
           if (error) {
-            res.json('Hash compare error');
+            console.log('error', error);
+            res.status(500).json('Hash compare error');
           } else if (!correctPassword) {
-            res.json('Invalid Credentials');
+            res.status(403).json('Invalid Credentials');
           } else {
             req.session.currentUser = user;
-            console.log(req.session.currentUser._id);
+            // console.log(req.session.user._id);
             res.json(user);
           }
         });

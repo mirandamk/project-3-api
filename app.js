@@ -3,17 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors');
+var app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Dependencies for cookie sessions
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 //allow localhost3002(react) to connect with localhost3000(express)
-var app = express();
+
 app.use(
   cors({
     origin: ['http://localhost:3002', 'https://localhost:3002'],
     credentials: true,
+    //withCredentials: true,
   })
 );
 
@@ -25,10 +32,6 @@ app.use(
 // app.listen(80, function () {
 //   console.log('CORS-enabled web server listening on port 80');
 // });
-
-// Dependencies for cookie sessions
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 
 //Starting cookie session for user
 app.use(
@@ -58,14 +61,16 @@ mongoose
   });
 
 //Function to protect routes if not logged in
-function protect(req, res, next, err) {
+function protect(req, res, next) {
+  console.log('hiii', req.session.currentUser);
+  console.log(req.session);
   if (req.session.currentUser) {
     next();
-  }
-  else {
-    res.json('/login')
+  } else {
+    res.status(403).json({ message: 'not logged in' });
     // res.status(500).json(err);
-}}
+  }
+}
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -74,7 +79,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes -> word after the first / is what React will look for in localhost3000/....
-app.use('/assignments', protect, require('./routes/assignments'));
+app.use('/assignments', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));

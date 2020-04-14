@@ -3,48 +3,59 @@
 //But lets first check if /user shows after log in is working, bc right now I can't access /user in browser. I believe it is protected right now?
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+var User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
-router.post('/signup', (req, res) => {
-  const { username, firstname, lastname, email, password } = req.body;
-  User.findOne({ username: username })
+router.get('/', function (req, res, next) {
+  User.find()
     .then((user) => {
-      if (user !== null) {
-        res.status(500);
-        res.json({ err: 'The username already exists!' });
-      } else {
-        if (checkPassword(password) !== true) {
-          res.err('Error');
-        }
-        bcrypt.hash(password, 10, function (err, hash) {
-          if (err) next('hashing error');
-          else {
-            User.create({
-              username: username,
-              firstname: firstname,
-              lastname: lastname,
-              email: email,
-              password: hash,
-            })
-              .then((response) => {
-                res.json(response);
-              })
-              .catch((err) => {
-                res.json(err);
-              });
-          }
-        });
-      }
+      res.json(user);
     })
     .catch((err) => {
-      res.send('user not created', err);
+      console.log(err);
     });
 });
 
-function checkPassword(str) {
-  var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-  return re.test(str);
-}
-
 module.exports = router;
+// router.post('/signup', (req, res) => {
+//   const { username, firstname, lastname, email, password } = req.body;
+//   User.findOne({ username: username })
+//     .then((user) => {
+//       if (user !== null) {
+//         res.status(500);
+//         res.json({ err: 'The username already exists!' });
+//       } else {
+//         if (checkPassword(password) !== true) {
+//           res.err('Error');
+//         }
+//         bcrypt.hash(password, 10, function (err, hash) {
+//           if (err) next('hashing error');
+//           else {
+//             User.create({
+//               username: username,
+//               firstname: firstname,
+//               lastname: lastname,
+//               email: email,
+//               password: hash,
+//             })
+//               .then((response) => {
+//                 res.json(response);
+//               })
+//               .catch((err) => {
+//                 res.json(err);
+//               });
+//           }
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       res.send('user not created', err);
+//     });
+// });
+
+// function checkPassword(str) {
+//   var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+//   return re.test(str);
+// }
+
+// module.exports = router;
