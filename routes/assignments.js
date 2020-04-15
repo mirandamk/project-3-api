@@ -5,7 +5,11 @@ var User = require('../models/userModel');
 const mongoose = require('mongoose');
 const uploader = require('../config/cloudinary.js');
 
-//show answers in website
+
+
+
+
+//Show all assignments
 router.get('/', function (req, res, next) {
   Assignments.find()
     .then((assignments) => {
@@ -16,8 +20,9 @@ router.get('/', function (req, res, next) {
     });
 });
 
+//create 
 router.post('/create', (req, res, next) => {
-  console.log("session:", req.session);
+  // console.log("session:", req.session);
   Assignments.create({
     dimension: req.body.dimension,
     description: req.body.description,
@@ -26,7 +31,7 @@ router.post('/create', (req, res, next) => {
   })
     .then((assignmentData) => {
       console.log(req.session.currentUser);
-      console.log(assignmentData);
+      // console.log(assignmentData);
       return User.findOneAndUpdate(
         { _id: req.session.currentUser._id },
         { $push: { assignments: mongoose.Types.ObjectId(assignmentData._id) } },
@@ -34,7 +39,7 @@ router.post('/create', (req, res, next) => {
       );
     })
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       res.json(user);
     })
     .catch((error) => {
