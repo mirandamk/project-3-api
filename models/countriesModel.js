@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const hofstedeSchema = new Schema({
     name: String,
-    population: String
+    population: String,
+    image: String
 });
 
 const Countries = mongoose.model('countries', hofstedeSchema);
