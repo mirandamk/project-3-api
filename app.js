@@ -83,6 +83,7 @@ app.use('/assignments', require('./routes/assignments'));
 app.use('/user', require('./routes/users'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
+app.use('/countries', require('./routes/countries'));
 
 module.exports = app;
 
