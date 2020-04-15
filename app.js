@@ -84,7 +84,7 @@ app.use('/user', require('./routes/users'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
 app.use('/countries', require('./routes/countries'));
-app.use('/userassignments', require('./routes/userassignments'))
+app.use('/user', require('./routes/userassignments'));
 
 module.exports = app;
 
