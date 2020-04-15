@@ -16,9 +16,13 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/upload', uploader.single('masculinityImageUrl'), (req, res, next) => {
+router.post('/create', (req, res, next) => {
+  console.log("session:", req.session);
   Assignments.create({
-    answerMasculinity: req.body.answerMasculinity,
+    dimension: req.body.dimension,
+    description: req.body.description,
+    image: req.body.image
+
   })
     .then((assignmentData) => {
       console.log(req.session.currentUser);
@@ -36,6 +40,13 @@ router.post('/upload', uploader.single('masculinityImageUrl'), (req, res, next) 
     .catch((error) => {
       console.log(error);
     });
+});
+
+//sends the file to cloudinary
+router.post('/uploadimage', uploader.single('dimension-image'), (req, res, next) => {
+  // console.log("session:", req.session);
+  var imageUrl= req.file.url;
+  res.json(imageUrl);
 });
 
 module.exports = router;
