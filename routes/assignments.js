@@ -3,6 +3,7 @@ var router = express.Router();
 var Assignments = require('../models/assignmentsModel');
 var User = require('../models/userModel');
 const mongoose = require('mongoose');
+const uploader = require('../config/cloudinary.js');
 
 //show answers in website
 router.get('/', function (req, res, next) {
@@ -15,7 +16,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/upload', uploader.single('masculinityImageUrl'), (req, res, next) => {
   Assignments.create({
     answerMasculinity: req.body.answerMasculinity,
   })
