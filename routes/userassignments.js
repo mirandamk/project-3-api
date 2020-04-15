@@ -1,18 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var Assignments = require('../models/assignmentsModel');
+// var Assignments = require('../models/assignmentsModel');
 var User = require('../models/userModel');
-const mongoose = require('mongoose');
-const uploader = require('../config/cloudinary.js');
-
-// router.get('/', (req, res, next) {
-//   const userID = req.query.userID
-// })
+// const mongoose = require('mongoose');
+// const uploader = require('../config/cloudinary.js');
 
 // router.get('/', function (req, res, next) {
 //   User.find()
 //   .then((userData) => {
+//     res.json(userData)
 //   console.log(req.session.currentUser)
+//     console.log(userData)
 // })
 //   .catch((err) => {
 //     console.log('user not found');
