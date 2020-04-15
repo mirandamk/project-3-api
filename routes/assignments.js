@@ -15,7 +15,8 @@ router.get('/', function (req, res, next) {
 
 //add answers in website
 router.post('/', (req, res) => {
-  Assignments.create(req.body)
+  Assignments
+  .create(req.body)
     .then((assignments) => {
       res.json(assignments);
     })
