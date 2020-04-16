@@ -80,11 +80,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes -> word after the first / is what React will look for in localhost3000/....
 app.use('/assignments', require('./routes/assignments'));
-app.use('/user', require('./routes/users'));
+//app.use('/user', require('./routes/users'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
 app.use('/countries', require('./routes/countries'));
 app.use('/user', require('./routes/userassignments'));
+app.use('/results', require('./routes/results'));
 
 module.exports = app;
 

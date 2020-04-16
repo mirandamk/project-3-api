@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
             res.status(403).json('Invalid Credentials');
           } else {
             req.session.currentUser = user;
-            console.log(req.session.user);
+            console.log(req.session.currentUser);
             res.json(user);
           }
         });
