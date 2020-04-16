@@ -8,6 +8,8 @@ const UserSchema = new Schema({
   lastname: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  home_uni: { type: String, required: true },
+  exchange_uni: { type: String, required: true },
   assignments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'assignments',
