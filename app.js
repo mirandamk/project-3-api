@@ -18,8 +18,9 @@ const MongoStore = require('connect-mongo')(session);
 
 app.use(
   cors({
-    origin: [process.env.client_origin_a, process.env.client_origin_b],
     credentials: true,
+    origin: [process.env.client_origin_a, process.env.client_origin_b],
+    
     //withCredentials: true,
   })
 );
