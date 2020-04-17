@@ -19,12 +19,12 @@ const MongoStore = require('connect-mongo')(session);
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.client_origin_a, process.env.client_origin_b],
-    
+    origin: true,
+
     //withCredentials: true,
   })
 );
-
+console.log(`${process.env.client_origin_a}, ${process.env.client_origin_b}`);
 // CORS method from the internet
 // app.get('/', function (req, res, next) {
 //   res.json({ msg: 'This is CORS-enabled for all origins!' });
