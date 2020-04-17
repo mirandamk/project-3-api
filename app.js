@@ -18,12 +18,13 @@ const MongoStore = require('connect-mongo')(session);
 
 app.use(
   cors({
-    origin: ['http://localhost:3002', 'https://localhost:3002'],
     credentials: true,
+    origin: true,
+
     //withCredentials: true,
   })
 );
-
+console.log(`${process.env.client_origin_a}, ${process.env.client_origin_b}`);
 // CORS method from the internet
 // app.get('/', function (req, res, next) {
 //   res.json({ msg: 'This is CORS-enabled for all origins!' });
