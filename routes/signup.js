@@ -26,6 +26,8 @@ router.post('/', (req, res) => {
               lastname: lastname,
               email: email,
               password: hash,
+              // home_uni: homeuni,
+              // exchange_uni: exchangeuni,
             })
               .then((response) => {
                 // console.log(user._id)
