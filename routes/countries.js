@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Countries = require('../models/countriesModel');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 //show countries in website
