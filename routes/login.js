@@ -15,7 +15,6 @@ router.post('/', (req, res, next) => {
         res.status(500);
         res.json('Invalid Credentials');
       } else {
-          console.log('password ' + password);
         bcrypt.compare(password, user.password, function (
           error,
           correctPassword
@@ -27,7 +26,7 @@ router.post('/', (req, res, next) => {
             res.status(403).json('Invalid Credentials');
           } else {
             req.session.currentUser = user;
-            console.log(req.session.currentUser);
+            // console.log(req.session.currentUser);
             res.json(user);
           }
         });

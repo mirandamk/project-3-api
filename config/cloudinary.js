@@ -11,7 +11,6 @@ cloudinary.config({
 
 var storage = cloudinaryStorage({
   cloudinary: cloudinary,
-  // folder: 'project3', // The name of the folder in cloudinary
   allowedFormats: ['jpg', 'png', 'jpeg'],
   filename: function (req, file, cb) {
     cb(null, file.originalname);

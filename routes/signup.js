@@ -30,7 +30,6 @@ router.post('/', (req, res) => {
               // exchange_uni: exchangeuni,
             })
               .then((response) => {
-                // console.log(user._id)
                 res.json(response);
               })
               .catch((err) => {
